@@ -1,10 +1,15 @@
 <template>
     <div class="movie col-2">
-        <img src="../assets/placeholder.jpg" alt="Placeholder">
+        <img class="poster" src="../assets/placeholder.jpg" alt="Placeholder">
         <div class="movie-info">
             Titolo: {{title}} <br>
             Titolo originale: {{ogTitle}} <br>
-            Lingua originale: {{ogLanguage}} <br>
+            Lingua originale: 
+            <object :data="flag" type="image/png">
+            {{ogLanguage}}
+            </object>
+            <!-- <img onerror="this.style.display='none'" :src="flag" :alt="ogLanguage"> -->
+            <br>
             Voto: {{rating}} 
         </div>
     </div>
@@ -20,6 +25,11 @@ export default {
         // rating: Number,
         result: Object,
     },
+    data(){
+        return{
+            flag: `https://www.countryflagicons.com/FLAT/24/${this.result.original_language.toUpperCase()}.png`,
+        }
+    },
     computed:{
         title(){
             return this.result.title;
@@ -28,12 +38,19 @@ export default {
             return this.result.original_title;
         },
         ogLanguage(){
-            return this.result.original_language;
+            return this.result.original_language.toUpperCase();
         },
         rating(){
             return this.result.vote_average;
-        }
+        },
     },
+    methods:{
+        flagHandler(){
+            if(this.ogLanguage === "EN"){
+               this.ogLanguage = "US";
+            }
+        }
+    }
     
 }
 </script>
@@ -42,7 +59,7 @@ export default {
 @import "../style/colors.scss";
 .movie{
     position: relative;
-    img{
+    .poster{
         width: 100%;
     }
     .movie-info{
@@ -52,7 +69,7 @@ export default {
         .movie-info{
             display:block;
         }
-        img{
+        .poster{
             filter:brightness(0.5);
         }
     }
