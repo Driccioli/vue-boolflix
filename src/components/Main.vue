@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid pt-5 pb-5 d-flex flex-column main">
         ORIGINALI NETFLIX
-        <div class="row pt-5 flex-wrap align-items-center justify-content-around">
+        <div class="row pt-5 g-2 flex-wrap align-items-center justify-content-around">
             <Movie 
             v-for="(result, index) in results" :key="index" 
             :result="result"

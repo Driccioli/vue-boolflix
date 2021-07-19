@@ -1,13 +1,15 @@
 <template>
   <div id="app">
-    <Header />
+    <Header @search="this.searchMovies"/>
     <Main :results="results"/>
   </div>
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import Main from "./components/Main.vue";
+import Header from "@/components/Header.vue";
+import Main from "@/components/Main.vue";
+import axios from 'axios';
+
 export default {
   name: "App",
   components: {
@@ -16,7 +18,7 @@ export default {
   },
   data(){
     return{
-      "results": [
+      results: [
         {
             "adult": false,
             "backdrop_path": "/3lbTiIN8cVonMUQwaeh5nvn61lr.jpg",
@@ -81,12 +83,22 @@ export default {
         }
     ],
     }
-  }
-};
+  },
+  methods:{
+      searchMovies(searchText){
+        
+        axios.get("https://api.themoviedb.org/3/search/movie?api_key=b17e169f5966a7d3788729bd757a6a93&query="+searchText.toLowerCase())
+          .then((incoming) =>{
+            this.results = incoming.data.results;
+          })
+        
+      }
+  },
+}
 </script>
 
 <style lang="scss">
-@import  "./style/colors.scss";
+@import  "@/style/colors.scss";
 #app{
   background-color: $netflix-background;
   color: $netflix-reg-text;

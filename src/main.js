@@ -1,5 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
+import axios from "axios";
+axios.get('/user?ID=12345');
 import 'bootstrap'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.css';
