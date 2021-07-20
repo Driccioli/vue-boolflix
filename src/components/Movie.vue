@@ -1,6 +1,6 @@
 <template>
     <div class="movie col-3">
-        <img class="poster" src="../assets/placeholder.jpg" alt="Placeholder">
+        <img class="poster" :src="posterLink" alt="Poster">
         <div class="movie-info">
             Titolo: {{title}} <br>
             Titolo originale: {{ogTitle}} <br>
@@ -47,6 +47,13 @@ export default {
         rating(){
             return this.movie.vote_average;
         },
+        posterLink(){
+            if(this.movie.poster_path == null){
+                return "http://localhost:8080/img/placeholder.a04a0209.jpg";
+            }   else{
+                return "https://image.tmdb.org/t/p/w780" + this.movie.poster_path; 
+            }
+        }
     },
     methods:{
         getFlag(){
