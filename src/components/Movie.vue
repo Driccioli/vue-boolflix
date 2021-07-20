@@ -28,10 +28,18 @@ export default {
     },
     computed:{
         title(){
-            return this.movie.title;
+            if(this.movie.title ===undefined){
+                return this.movie.name;
+            }else{
+                return this.movie.title;
+            }
         },
         ogTitle(){
-            return this.movie.original_title;
+            if(this.movie.original_title ===undefined){
+                return this.movie.original_name;
+            }else{
+                return this.movie.original_title;
+            }
         },
         ogLanguage(){
             return this.movie.original_language;

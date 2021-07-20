@@ -3,12 +3,12 @@
         ORIGINALI NETFLIX
         <div class="row pt-5 g-2 flex-wrap align-items-center justify-content-around">
             <Movie 
-            v-for="(movie, index) in movies" :key="index" 
+            v-for="(movie, movieIndex) in movies" :key="movieIndex" 
             :movie="movie"
             />
             <Movie 
-            v-for="(tv, index) in series" class="series" :key="index" 
-            :movie="movie"
+            v-for="(tv, tvIndex) in series" class="series" :key="tvIndex" 
+            :movie="tv"
             />
         </div>
     </div>
@@ -48,4 +48,7 @@ export default {
     font-size: 20px;
     color: $netflix-bold-text;
 }
+// .series{
+//     border: 1px solid red;
+// }
 </style>
