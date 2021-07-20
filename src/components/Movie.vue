@@ -1,14 +1,10 @@
 <template>
-    <div class="movie col-2">
+    <div class="movie col-3">
         <img class="poster" src="../assets/placeholder.jpg" alt="Placeholder">
         <div class="movie-info">
             Titolo: {{title}} <br>
             Titolo originale: {{ogTitle}} <br>
-            Lingua originale: 
-            <object :data="flag" type="image/png">
-            {{ogLanguage}}
-            </object>
-            <!-- <img onerror="this.style.display='none'" :src="flag" :alt="ogLanguage"> -->
+            Lingua originale: <div class="flag-container"><flag :iso="getFlag()" :squared="false"/></div>
             <br>
             Voto: {{rating}} 
         </div>
@@ -38,16 +34,29 @@ export default {
             return this.result.original_title;
         },
         ogLanguage(){
-            return this.result.original_language.toUpperCase();
+            return this.result.original_language;
         },
         rating(){
             return this.result.vote_average;
         },
     },
     methods:{
-        flagHandler(){
-            if(this.ogLanguage === "EN"){
-               this.ogLanguage = "US";
+        getFlag(){
+            switch (this.ogLanguage) {
+                // Aggiungere altri casi speciali appena saltano fuori
+                case "en":
+                    return "us";
+
+                case "uk":
+                    return "gb";
+
+                case "ja":
+                    return "jp"; 
+                    
+                case "ko":
+                    return "sd";
+                default:
+                    return this.ogLanguage;
             }
         }
     }
@@ -84,5 +93,10 @@ export default {
     z-index: 1002;
     font-size: 12px;
     line-height: 20px;
+}
+
+.flag-container{
+    font-size: 18px;
+    display: inline-block;
 }
 </style>
