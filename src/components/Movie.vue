@@ -1,12 +1,17 @@
 <template>
     <div class="movie col-3">
-        <img class="poster" :src="posterLink" alt="Poster">
+        <img v-if="posterLink!=null" class="poster" :src="posterLink">
+        <img v-else src="../assets/placeholder.jpg" class="poster" alt="Placeholder">
         <div class="movie-info">
             Titolo: {{title}} <br>
             Titolo originale: {{ogTitle}} <br>
             Lingua originale: <div class="flag-container"><flag :iso="getFlag()" :squared="false"/></div>
             <br>
-            Voto: {{rating}} 
+            <!-- Voto: {{rating}} 
+            Stelle: {{starRating}} -->
+            <div class="stars">
+                <i v-for="index in 5" :key="index" :class="starSwitch(index)" class="fa-star"></i>
+            </div>
         </div>
     </div>
 </template>
@@ -47,9 +52,12 @@ export default {
         rating(){
             return this.movie.vote_average;
         },
+        starRating(){
+            return Math.ceil(this.movie.vote_average/2);
+        },
         posterLink(){
             if(this.movie.poster_path == null){
-                return "http://localhost:8080/img/placeholder.a04a0209.jpg";
+                return null;
             }   else{
                 return "https://image.tmdb.org/t/p/w780" + this.movie.poster_path; 
             }
@@ -75,7 +83,14 @@ export default {
                 default:
                     return this.ogLanguage;
             }
-        }
+        },        
+        starSwitch(index){
+            if(index <= this.starRating){
+                return "fas";
+            }   else{
+                return "far";
+            }
+        },
     }
     
 }
@@ -115,5 +130,10 @@ export default {
 .flag-container{
     font-size: 18px;
     display: inline-block;
+}
+
+.fa-star{
+    color: $star;
+    font-size: 16px;
 }
 </style>
