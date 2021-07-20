@@ -19,25 +19,25 @@ export default {
         // ogTitle: String,
         // ogLanguage: String,
         // rating: Number,
-        result: Object,
+        movie: Object,
     },
     data(){
         return{
-            flag: `https://www.countryflagicons.com/FLAT/24/${this.result.original_language.toUpperCase()}.png`,
+            flag: `https://www.countryflagicons.com/FLAT/24/${this.movie.original_language.toUpperCase()}.png`,
         }
     },
     computed:{
         title(){
-            return this.result.title;
+            return this.movie.title;
         },
         ogTitle(){
-            return this.result.original_title;
+            return this.movie.original_title;
         },
         ogLanguage(){
-            return this.result.original_language;
+            return this.movie.original_language;
         },
         rating(){
-            return this.result.vote_average;
+            return this.movie.vote_average;
         },
     },
     methods:{
@@ -55,6 +55,8 @@ export default {
                     
                 case "ko":
                     return "sd";
+                case "hi", "ur":
+                    return "in";
                 default:
                     return this.ogLanguage;
             }

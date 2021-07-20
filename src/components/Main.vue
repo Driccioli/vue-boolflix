@@ -3,13 +3,13 @@
         ORIGINALI NETFLIX
         <div class="row pt-5 g-2 flex-wrap align-items-center justify-content-around">
             <Movie 
-            v-for="(result, index) in results" :key="index" 
-            :result="result"
+            v-for="(movie, index) in movies" :key="index" 
+            :movie="movie"
             />
-            <!-- :title="title"
-            :ogTitle="ogTitle"
-            :ogLanguage="ogLanguage"
-            :rating="rating" -->
+            <Movie 
+            v-for="(tv, index) in series" class="series" :key="index" 
+            :movie="movie"
+            />
         </div>
     </div>
 </template>
@@ -22,7 +22,8 @@ export default {
         Movie,
     },
     props:{
-        results: Array,
+        movies: Array,
+        series: Array,
     },
     computed:{
         title(){

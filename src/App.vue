@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header @search="this.searchMovies"/>
-    <Main :results="results"/>
+    <Header @search="[searchMovies($event), searchSeries($event)]"/>
+    <Main :movies="movies" :series="series"/>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
   },
   data(){
     return{
-      results: [
+      movies: [
         {
             "adult": false,
             "backdrop_path": "/3lbTiIN8cVonMUQwaeh5nvn61lr.jpg",
@@ -82,16 +82,33 @@ export default {
             "vote_count": 7876
         }
     ],
+    series:[],
     }
   },
   methods:{
-      searchMovies(searchText){
+      searchContent(type, searchText){
         
-        axios.get("https://api.themoviedb.org/3/search/movie?api_key=b17e169f5966a7d3788729bd757a6a93&query="+searchText.toLowerCase())
+        axios.get("https://api.themoviedb.org/3/search/"+type+"?api_key=b17e169f5966a7d3788729bd757a6a93&query="+searchText.toLowerCase())
           .then((incoming) =>{
-            this.results = incoming.data.results;
+            switch (type) {
+              case "movie":
+                 this.movies = incoming.data.results;
+                break;
+              case "tv":
+                this.series = incoming.data.results;
+                break;
+              default:
+                break;
+            }
+           
           })
         
+      },
+      searchMovies(searchText){
+        this.searchContent("movie", searchText);
+      },
+      searchSeries(searchText){
+        this.searchContent("tv", searchText);
       }
   },
 }
