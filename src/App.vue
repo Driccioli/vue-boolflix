@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @search="[searchMovies($event), searchSeries($event)]"/>
-    <Main :movies="movies" :series="series"/>
+    <Main @popular="[getPopular('movie'), getPopular('tv')]" :movies="movies" :series="series"/>
   </div>
 </template>
 
@@ -90,16 +90,7 @@ export default {
         
         axios.get("https://api.themoviedb.org/3/search/"+type+"?api_key=b17e169f5966a7d3788729bd757a6a93&query="+searchText.toLowerCase())
           .then((incoming) =>{
-            switch (type) {
-              case "movie":
-                 this.movies = incoming.data.results;
-                break;
-              case "tv":
-                this.series = incoming.data.results;
-                break;
-              default:
-                break;
-            }
+            this.sortType(type, incoming);
            
           })
         
@@ -109,8 +100,30 @@ export default {
       },
       searchSeries(searchText){
         this.searchContent("tv", searchText);
-      }
+      },
+      getPopular(type){
+        axios.get("https://api.themoviedb.org/3/"+type+"/popular?api_key=b17e169f5966a7d3788729bd757a6a93")
+        .then((incoming) =>{
+          this.sortType(type, incoming);
+        })
+      },
+      sortType(type, incoming){
+        switch (type) {
+              case "movie":
+                 this.movies = incoming.data.results;
+                 break;
+              case "tv":
+                this.series = incoming.data.results;
+                break;
+              default:
+                break;
+            }
+      },
   },
+  created(){
+    this.getPopular("movie");
+    this.getPopular("tv");
+  }
 }
 </script>
 

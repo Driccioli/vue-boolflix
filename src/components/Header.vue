@@ -1,10 +1,10 @@
 <template>
-    <div class="header d-flex p-2 justify-content-between align-items-center">
-        <div class="logo-container">
+    <div class="header d-flex p-2 flex-column">
+        <div class="logo-container align-self-center">
             <img src="../assets/Netflix_Logo_RGB.png" alt="Netflix Logo">
         </div>
         <div class="search-bar flex-grow-1 d-flex justify-content-end">
-            <input v-model="inputText" @keyup.enter="$emit('search', inputText)" class="p-1" type="search" name="title" id="title" placeholder="Write title">
+            <input v-model="inputText" @keyup.enter="$emit('search', inputText)" class="p-1 ps-3 flex-grow-1" type="search" name="title" id="title" placeholder="Write title">
             <button @click="$emit('search', inputText)" ><i class="fas fa-search"></i></button>
         </div>
     </div>
@@ -29,14 +29,22 @@ export default {
 
 .logo-container{
     img{
-        max-width: 150px;
+        max-width: 200px;
     }
 }
 
 .search-bar{
     input{
         border-radius: 12px;
+        font-size: 20px;
         border: none;
+        background-color: $netflix-reg-text;
+        color: $netflix-bold-text;
+
+        &::placeholder{
+            color:$netflix-placeholder;
+        }
+
     }
 }
 

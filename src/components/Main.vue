@@ -1,7 +1,10 @@
 <template>
-    <div class="container-fluid pt-5 pb-5 d-flex flex-column main">
+    <div class="container-fluid pt-3 pb-3 d-flex flex-column main">
         ORIGINALI NETFLIX
-        <div class="row pt-5 g-2 flex-wrap align-items-center justify-content-around">
+        <div class="row pt-2 justify-content-left align-items-center">
+            <button @click="$emit('popular')" class="col-1">Popular</button>
+        </div>
+        <div class="row pt-3 pb-5 g-3 flex-wrap align-items-center justify-content-around">
             <Movie 
             v-for="(movie, movieIndex) in movies" :key="movieIndex" 
             :movie="movie"
@@ -10,6 +13,9 @@
             v-for="(tv, tvIndex) in series" class="series" :key="tvIndex" 
             :movie="tv"
             />
+        </div>
+        <div v-if="movies.length === 0 && series.length === 0" class="pt-5 error">
+            No results found. Sorry :(
         </div>
     </div>
 </template>
@@ -45,10 +51,24 @@ export default {
 <style lang="scss" scoped>
 @import "../style/colors.scss";
 .main{
-    font-size: 20px;
+    font-size: 40px;
     color: $netflix-bold-text;
+    min-height: 78.8vh;
 }
-// .series{
-//     border: 1px solid red;
-// }
+.error{
+    text-align: center;
+    font-size: 30px;
+    color: $netflix-reg-text;
+}
+
+button{
+    background: none;
+    color: $netflix-reg-text;
+    border: none;
+    text-align: left;
+    font-size: 20px;
+    &:hover{
+        color: $netflix-bold-text;
+    }
+}
 </style>
