@@ -31,20 +31,6 @@ export default {
         movies: Array,
         series: Array,
     },
-    computed:{
-        title(){
-            return this.title;
-        },
-        ogTitle(){
-            return this.original_title;
-        },
-        ogLanguage(){
-            return this.original_language;
-        },
-        rating(){
-            return this.vote_average;
-        }
-    },
 }
 </script>
 
@@ -65,6 +51,7 @@ button{
     background: none;
     color: $netflix-reg-text;
     border: none;
+    display: inline-block;
     text-align: left;
     font-size: 20px;
     &:hover{

@@ -1,10 +1,10 @@
 <template>
-    <div class="header d-flex p-2 flex-column">
-        <div class="logo-container align-self-center">
+    <div class="header d-flex p-2 justify-content-around align-items-center ">
+        <div class="logo-container">
             <img src="../assets/Netflix_Logo_RGB.png" alt="Netflix Logo">
         </div>
-        <div class="search-bar flex-grow-1 d-flex justify-content-end">
-            <input v-model="inputText" @keyup.enter="$emit('search', inputText)" class="p-1 ps-3 flex-grow-1" type="search" name="title" id="title" placeholder="Write title">
+        <div class="search-bar flex-grow-1 d-flex justify-content-end align-items-center">
+            <input v-model="inputText" @keyup.enter="$emit('search', inputText)" class="p-1 ps-3 col-4" type="search" name="title" id="title" placeholder="Write title">
             <button @click="$emit('search', inputText)" ><i class="fas fa-search"></i></button>
         </div>
     </div>

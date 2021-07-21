@@ -19,10 +19,6 @@
 export default {
     name:"Movie",
     props:{
-        // title: String,
-        // ogTitle: String,
-        // ogLanguage: String,
-        // rating: Number,
         movie: Object,
     },
     data(){
@@ -32,18 +28,10 @@ export default {
     },
     computed:{
         title(){
-            if(this.movie.title === undefined){
-                return this.movie.name;
-            }else{
-                return this.movie.title;
-            }
+            return !this.movie.title ? this.movie.name : this.movie.title;
         },
         ogTitle(){
-            if(this.movie.original_title === undefined){
-                return this.movie.original_name;
-            }else{
-                return this.movie.original_title;
-            }
+            return !this.movie.original_title ? this.movie.original_name : this.movie.original_title;
         },
         ogLanguage(){
             return this.movie.original_language;
@@ -52,11 +40,7 @@ export default {
             return Math.ceil(this.movie.vote_average/2);
         },
         posterLink(){
-            if(this.movie.poster_path == null){
-                return null;
-            }   else{
-                return "https://image.tmdb.org/t/p/w780" + this.movie.poster_path; 
-            }
+            return this.movie.poster_path===null ? null : "https://image.tmdb.org/t/p/w780" + this.movie.poster_path;
         }
     },
     methods:{
